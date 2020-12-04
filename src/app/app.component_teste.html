@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="header">
+    <h1>Fomulario de Proposta - SINAF</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><label>Nome</label> <input [(ngModel)]="cliente.nome" required>
+    </div>
+    <div class="col-md-3">
+      <label>CPF</label> <input [(ngModel)]="cliente.cpf" required>
+    </div>
+    <div class="col-md-3"> <label>Data de Nascimento</label> <input [(ngModel)]="cliente.dtNascimento" required></div>
+    <div class="col-md-3"> <label>Sexo</label>
+      <select [(ngModel)]="cliente.sexo" required>
+        <option value="0">Feminino</option>
+        <option value="1">Masculino</option>
+      </select></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"> <label>E-Mail</label> <input [(ngModel)]="cliente.email" required><br>
+    </div>
+    <div class="col-md-6">
+
+      <label>Telefone</label> <input [(ngModel)]="newtel" required><br><button class="btn btn-primary"
+        (click)="addTel($event)">ADD TEL</button>
+      <ul>
+        <li *ngFor="let item of cliente.telefones; let i = index">
+          {{i}} {{item}} <button (click)="delTel(i)" class="btn btn-danger">DEL</button></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><label>CEP</label> <input [(ngModel)]="newcep" required></div>
+    <div class="col-md-3"><label>Endereço</label> <input [(ngModel)]="newend" required></div>
+    <div class="col-md-3"> <label>Número</label> <input [(ngModel)]="newnum" required></div>
+    <div class="col-md-3"> <label>Complemento</label> <input [(ngModel)]="newcompl" required>&nbsp;</div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label>Bairro</label> <input [(ngModel)]="newbairro" required>
+    </div>
+    <div class="col-md-3"><button class="btn btn-primary" (click)="addend($event)">ADD ENDEREÇO</button></div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        <li *ngFor="let item of cliente.enderecos; let j = index">
+          {{j}} {{item.endereco}} , {{item.numero}} {{item.complemento}} - {{item.bairro}} - CEP: {{item.cep}} <button
+            (click)="delend(j)" class="btn btn-danger">DEL</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6"> <label>Tem dependentes ou agregados?</label>
+          <input type="radio" [(ngModel)]="boldepagreg" value="1"> Sim
+          <input type="radio" [(ngModel)]="boldepagreg" value="0" (click)="cleardepagreg()"> Não
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+
+    <div class="col-md-12" *ngIf="boldepagreg==1;">
+      <div class="row">
+        <div class="col-md-3"> <label>Tipo</label>
+          <select required [(ngModel)]="newtipodepagreg">
+            <option label="--Selecione --"></option>
+            <option value=0>Agregado</option>
+            <option value=1>Parente</option>
+          </select></div>
+        <div class="col-md-3"><label>Nome</label> <input [(ngModel)]="newnomedepagreg" required></div>
+        <div class="col-md-3"> <label>CPF</label> <input [(ngModel)]="newcpfdepagreg" required></div>
+        <div class="col-md-3"> <button (click)="adddepagreg($event)" class="btn btg-primary">ADD
+            Dependente/Agregado</button></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            <li *ngFor="let item of cliente.dependenteAgregados; let k = index">
+              {{k}} {{item.nome}} - {{item.cpf}} <button (click)="deldepagreg(k)" class="btn btg-danger">DEL</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    <div class="row">
+        <div class="col-md-12"> 
+          <div class="row">
+            <div class="col-md-3"> 
+            <label>Cobertura</label>
+              <select [disabled]="propostaseguro.coberturascliente.length==0" required [(ngModel)]="newcobertura">
+                <option label="--Selecione --"></option>
+                <option value=0>Assitencia funeral</option>
+                <option value=1>Seguro de vida</option>
+              </select>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"> 
+            <label>Valor Assegurado</label>
+            <input [(ngModel)]="newvalorassegurado" required>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+
+ 
+  <br><br><br><br>
+  <pre>{{cliente|json}}</pre>
